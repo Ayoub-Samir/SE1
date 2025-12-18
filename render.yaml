@@ -2,7 +2,6 @@ services:
   - type: web
     name: revizyon-talebi-demo
     runtime: docker
-    plan: free
     healthCheckPath: /
     envVars:
       - key: PORT
