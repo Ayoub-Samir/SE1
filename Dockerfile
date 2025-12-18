@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 COPY requirements.txt requirements-pptx.txt ./
 RUN python -m pip install --no-cache-dir -r requirements.txt && \
-    python -m pip install --no-cache-dir -r requirements-pptx.txt
+    (python -m pip install --no-cache-dir -r requirements-pptx.txt || true)
 
 COPY app ./app
 COPY templates ./templates
