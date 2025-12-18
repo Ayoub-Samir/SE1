@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title if title else "Revizyon Talebi Demo" }}</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container">
+        <div class="brand">
+          <a href="/">Revizyon Talebi Demo</a>
+        </div>
+        <nav class="nav">
+          <a href="/upload">Upload</a>
+          <a href="/requests">Talepler</a>
+          <a href="/dashboard">Dashboard</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="footer container">
+      <small>Demo • Sunum senaryosu: “Yatırım Programı Revizyon Talebi”</small>
+    </footer>
+  </body>
+</html>
+

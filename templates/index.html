@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ app_name }}</h1>
+  <p>
+    Bu uygulama, revizyon talebi dosyasını alır, metin çıkarır, proje kodu/tutar/gerekçe bilgilerini çıkarır,
+    risk analizi yapar ve onay/red süreci sonrası YPK sunumu çıktısı üretir.
+  </p>
+  <div class="cards">
+    <a class="card" href="/upload">
+      <h3>1) Dosya Yükle</h3>
+      <p>Revizyon talebi PDF/TXT yükleyin.</p>
+    </a>
+    <a class="card" href="/requests">
+      <h3>2) Talepleri Gör</h3>
+      <p>Çıkarım + risk + karar akışını takip edin.</p>
+    </a>
+    <a class="card" href="/dashboard">
+      <h3>3) Dashboard</h3>
+      <p>Projeler ve onaylanan revizyonları görüntüleyin.</p>
+    </a>
+  </div>
+{% endblock %}
+

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Revizyon Talebi Yükle</h1>
+  <form class="panel" action="/upload" method="post" enctype="multipart/form-data">
+    <label>Dosya (PDF/TXT)</label>
+    <input type="file" name="file" required />
+    <button type="submit">Yükle ve İşle</button>
+  </form>
+
+  <div class="hint">
+    <p>Demo için örnek dosya üretmek: <code>python scripts/generate_sample_pdf.py</code></p>
+  </div>
+{% endblock %}
+

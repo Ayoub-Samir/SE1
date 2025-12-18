@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: revizyon-talebi-demo
+    runtime: docker
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 8000
+
+      # Render URL’niz oluşunca APP_BASE_URL değerini güncelleyin.
+      - key: APP_BASE_URL
+        value: https://revizyon-talebi-demo.onrender.com
+      - key: LLM_PROVIDER
+        value: mock
+
+      # Kalıcı disk kullanırsanız bunları /var/data altına yönlendirin.
+      # Free plan’da kalıcı disk yoksa varsayılanlar (./data, ./storage, ./outputs) ile çalışır.
+      #- key: DATA_DIR
+      #  value: /var/data/data
+      #- key: STORAGE_DIR
+      #  value: /var/data/storage
+      #- key: OUTPUT_DIR
+      #  value: /var/data/outputs
+
+    # Kalıcı disk (ücretli planlarda):
+    #disk:
+    #  name: data
+    #  mountPath: /var/data
+    #  sizeGB: 1

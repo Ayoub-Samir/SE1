@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Talep {{ row.id }}</h1>
+
+  <div class="grid">
+    <section class="panel">
+      <h3>Özet</h3>
+      <p><b>Dosya:</b> {{ row.filename }} • <a href="/requests/{{ row.id }}/download">indir</a></p>
+      <p><b>Durum:</b> <span class="badge badge-{{ row.status }}">{{ row.status }}</span></p>
+      <p><b>Proje Kodu:</b> {{ row.project_code or "-" }}</p>
+      <p><b>Talep Tutarı (TL):</b> {{ row.requested_amount_try if row.requested_amount_try is not none else "-" }}</p>
+      <p><b>Risk:</b> {{ row.risk_score if row.risk_score is not none else "-" }}/100</p>
+      <p><b>Risk Notları:</b> {{ row.risk_notes or "-" }}</p>
+      <p><b>Karar:</b> {{ row.decision or "-" }}</p>
+      {% if row.status == "approved" %}
+        <p><a href="/requests/{{ row.id }}/presentation">YPK Sunumu indir</a></p>
+      {% endif %}
+    </section>
+
+    <section class="panel">
+      <h3>Proje (Örnek DB)</h3>
+      {% if project %}
+        <p><b>Ad:</b> {{ project.project_name }}</p>
+        <p><b>Bakanlık:</b> {{ project.ministry }}</p>
+        <p><b>Toplam Bütçe (TL):</b> {{ project.total_budget_try }}</p>
+        <p><b>Harcama (TL):</b> {{ project.spent_try }}</p>
+        <p><b>Kalan (TL):</b> {{ project.remaining_try }}</p>
+      {% else %}
+        <p>Proje bulunamadı (proje kodu yanlış olabilir).</p>
+      {% endif %}
+    </section>
+  </div>
+
+  <section class="panel">
+    <h3>Çıkarılan Gerekçe</h3>
+    <pre class="pre">{{ row.justification or "-" }}</pre>
+  </section>
+
+  <section class="panel">
+    <h3>Manuel Düzeltme (Opsiyonel)</h3>
+    <form action="/requests/{{ row.id }}/edit" method="post" class="form-grid">
+      <label>Proje Kodu</label>
+      <input name="project_code" value="{{ row.project_code or '' }}" placeholder="2024-123456" />
+      <label>Talep Tutarı (TL)</label>
+      <input name="requested_amount_try" value="{{ row.requested_amount_try or '' }}" placeholder="1500000" />
+      <label>Gerekçe</label>
+      <textarea name="justification" rows="5">{{ row.justification or '' }}</textarea>
+      <div></div>
+      <button type="submit">Kaydet ve Risk Güncelle</button>
+    </form>
+  </section>
+
+  <div class="grid">
+    <section class="panel">
+      <h3>Onay / Red</h3>
+      <div class="actions">
+        <form action="/requests/{{ row.id }}/approve" method="post">
+          <input name="note" placeholder="Onay notu (opsiyonel)" />
+          <button class="btn-ok" type="submit">Onayla</button>
+        </form>
+        <form action="/requests/{{ row.id }}/reject" method="post">
+          <input name="note" placeholder="Red notu (opsiyonel)" />
+          <button class="btn-no" type="submit">Reddet</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h3>Audit Log</h3>
+      <ul class="list">
+        {% for a in audits %}
+          <li><small>{{ a.created_at }}</small> • <b>{{ a.action }}</b> • {{ a.detail or "" }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+{% endblock %}
+

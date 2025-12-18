@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Runtime data
+data/app.db
+storage/
+outputs/
+data_test/
+
+# PDFs / extracted notes (don’t commit)
+*.pdf
+pdf_extracted*.txt
+samples/

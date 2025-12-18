@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Dashboard</h1>
+
+  <h3>Projeler (Örnek)</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Proje</th>
+        <th>Ad</th>
+        <th>Bakanlık</th>
+        <th>Toplam (TL)</th>
+        <th>Harcama (TL)</th>
+        <th>Onaylı Revizyon (TL)</th>
+        <th>Revize Toplam (TL)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in projects %}
+        <tr>
+          <td>{{ p.project_code }}</td>
+          <td>{{ p.project_name }}</td>
+          <td>{{ p.ministry }}</td>
+          <td>{{ p.total_budget_try }}</td>
+          <td>{{ p.spent_try }}</td>
+          <td>{{ p.approved_revision_try }}</td>
+          <td>{{ p.revised_total_try }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3>Son Talepler</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Proje</th>
+        <th>Tutar (TL)</th>
+        <th>Durum</th>
+        <th>Risk</th>
+        <th>Tarih</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in requests %}
+        <tr>
+          <td><a href="/requests/{{ r.id }}">{{ r.id }}</a></td>
+          <td>{{ r.project_code or "-" }}</td>
+          <td>{{ r.requested_amount_try if r.requested_amount_try is not none else "-" }}</td>
+          <td><span class="badge badge-{{ r.status }}">{{ r.status }}</span></td>
+          <td>{{ r.risk_score if r.risk_score is not none else "-" }}</td>
+          <td><small>{{ r.created_at }}</small></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+

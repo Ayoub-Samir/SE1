@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Talepler</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Dosya</th>
+        <th>Durum</th>
+        <th>Proje</th>
+        <th>Tutar (TL)</th>
+        <th>Risk</th>
+        <th>Tarih</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in rows %}
+        <tr>
+          <td><a href="/requests/{{ r.id }}">{{ r.id }}</a></td>
+          <td>{{ r.filename }}</td>
+          <td><span class="badge badge-{{ r.status }}">{{ r.status }}</span></td>
+          <td>{{ r.project_code or "-" }}</td>
+          <td>{{ r.requested_amount_try if r.requested_amount_try is not none else "-" }}</td>
+          <td>{{ r.risk_score if r.risk_score is not none else "-" }}</td>
+          <td><small>{{ r.created_at }}</small></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
