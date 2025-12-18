@@ -4,26 +4,9 @@ services:
     runtime: docker
     healthCheckPath: /
     envVars:
-      - key: PORT
-        value: 8000
-
-      # Render URL’niz oluşunca APP_BASE_URL değerini güncelleyin.
+      # Set this after Render creates your service URL.
       - key: APP_BASE_URL
-        value: https://revizyon-talebi-demo.onrender.com
+        sync: false
       - key: LLM_PROVIDER
         value: mock
 
-      # Kalıcı disk kullanırsanız bunları /var/data altına yönlendirin.
-      # Free plan’da kalıcı disk yoksa varsayılanlar (./data, ./storage, ./outputs) ile çalışır.
-      #- key: DATA_DIR
-      #  value: /var/data/data
-      #- key: STORAGE_DIR
-      #  value: /var/data/storage
-      #- key: OUTPUT_DIR
-      #  value: /var/data/outputs
-
-    # Kalıcı disk (ücretli planlarda):
-    #disk:
-    #  name: data
-    #  mountPath: /var/data
-    #  sizeGB: 1
